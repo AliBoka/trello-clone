@@ -17,6 +17,13 @@ interface BoardState {
   setActiveCard: (listId: string | null, cardId: string | null) => void;
   updateCardTitle: (listId: string, cardId: string, title: string) => void;
   addComment: (listId: string, cardId: string, text: string) => void;
+  moveList: (sourceIndex: number, destinationIndex: number) => void;
+  moveCard: (
+    sourceListId: string,
+    destListId: string,
+    sourceIndex: number,
+    destIndex: number
+  ) => void;
 }
 
 const initialBoard: Board = {
@@ -169,6 +176,50 @@ export const useBoardStore = create<BoardState>()(
               lists: updatedLists,
             },
           };
+        }),
+
+      moveList: (sourceIndex, destinationIndex) =>
+        set((state) => {
+          const newLists = Array.from(state.board.lists);
+          const [reorderedList] = newLists.splice(sourceIndex, 1);
+          newLists.splice(destinationIndex, 0, reorderedList);
+
+          return { board: { ...state.board, lists: newLists } };
+        }),
+
+      moveCard: (sourceListId, destListId, sourceIndex, destIndex) =>
+        set((state) => {
+          const newLists = Array.from(state.board.lists);
+
+          const sourceListIndex = newLists.findIndex((l) => l.id === sourceListId);
+          const destListIndex = newLists.findIndex((l) => l.id === destListId);
+
+          // Fallback in case lists aren't found
+          if (sourceListIndex === -1 || destListIndex === -1) return state;
+
+          const sourceList = { ...newLists[sourceListIndex] };
+          const destList =
+            sourceListId === destListId ? sourceList : { ...newLists[destListIndex] };
+
+          const sourceCards = Array.from(sourceList.cards);
+          const destCards =
+            sourceListId === destListId ? sourceCards : Array.from(destList.cards);
+
+          // Remove card from source
+          const [movedCard] = sourceCards.splice(sourceIndex, 1);
+
+          // Insert card into destination
+          destCards.splice(destIndex, 0, movedCard);
+
+          // Update the lists
+          sourceList.cards = sourceCards;
+          if (sourceListId !== destListId) {
+            destList.cards = destCards;
+            newLists[destListIndex] = destList;
+          }
+          newLists[sourceListIndex] = sourceList;
+
+          return { board: { ...state.board, lists: newLists } };
         }),
     }),
     {

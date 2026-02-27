@@ -12,6 +12,11 @@
   &:hover {
     background-color: #f4f5f7;
   }
+  &.is-dragging {
+    transform: rotate(4deg);
+    box-shadow: 0 0.5rem 1rem rgba(9, 30, 66, 0.25);
+    z-index: 100;
+  }
 
   .card-title {
     font-size: $font-size-base;
