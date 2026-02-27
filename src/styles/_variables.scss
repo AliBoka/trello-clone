@@ -1,13 +1,17 @@
-
 $primary-bg: #0079bf;
 $list-bg: #ebecf0;
 $card-bg: #ffffff;
 $text-main: #172b4d;
 $text-subtle: #5e6c84;
-$accent-color: #5aac44; 
+$accent-color: #5aac44;
 $danger-color: #cf513d;
 
-$border-radius: 3px;
-$shadow-sm: 0 1px 0 rgba(9, 30, 66, 0.25);
+$font-size-sm: 0.75rem;   // 12px
+$font-size-base: 0.875rem; // 14px 
+$font-size-lg: 1rem;       // 16px
+$font-size-xl: 1.25rem;    // 20px
+
+$border-radius: 0.25rem;  // 4px
+$shadow-sm: 0 0.0625rem 0 rgba(9, 30, 66, 0.25);
 
 $transition-fast: 0.2s ease;

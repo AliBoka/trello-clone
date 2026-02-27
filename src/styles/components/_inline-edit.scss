@@ -1,0 +1,21 @@
+.inline-edit-display {
+  padding: 0.25rem 0.5rem;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: $transition-fast;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+.inline-edit-input {
+  padding: 0.25rem 0.5rem;
+  border-radius: $border-radius;
+  border: 0.125rem solid $primary-bg;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  outline: none;
+  width: 100%;
+}

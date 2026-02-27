@@ -1,5 +1,9 @@
-const page = () => {
-  return <div>page</div>;
-};
+import { Board } from '@/components/board/Board';
 
-export default page;
+export default function Home() {
+  return (
+    <main>
+      <Board />
+    </main>
+  );
+}

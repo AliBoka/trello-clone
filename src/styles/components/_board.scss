@@ -1,0 +1,57 @@
+.board-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+
+  .board-header {
+    padding: 0.75rem 1rem;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: white;
+
+    .board-title {
+      font-size: $font-size-xl;
+      font-weight: bold;
+      display: inline-block;
+      
+      &.inline-edit-input {
+        color: $text-main;
+      }
+    }
+  }
+
+  .board-canvas {
+    display: flex;
+    flex: 1;
+    padding: 1rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 1rem;
+    align-items: flex-start;
+
+    .add-list-button {
+      height: 2.75rem;
+      min-width: 17rem;
+      padding: 0.75rem;
+      border-radius: $border-radius;
+      background-color: rgba(0, 0, 0, 0.12);
+      color: white;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      font-size: $font-size-lg;
+      transition: $transition-fast;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.32);
+      }
+    }
+
+    .placeholder {
+      min-width: 17rem;
+      background-color: $list-bg;
+      padding: 0.75rem;
+      border-radius: $border-radius;
+    }
+  }
+}
