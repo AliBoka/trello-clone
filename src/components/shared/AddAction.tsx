@@ -42,7 +42,19 @@ export const AddAction = ({
     if (text.trim()) {
       onAdd(text.trim());
       setText('');
-      setIsEditing(false);
+
+      setTimeout(() => {
+        if (isBoardLevel && inputRef.current) {
+          inputRef.current.scrollIntoView({
+            behavior: 'smooth',
+            inline: 'end',
+            block: 'end',
+          });
+          inputRef.current.focus();
+        } else if (isTextArea && textareaRef.current) {
+          textareaRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        }
+      }, 50);
     }
   };
 

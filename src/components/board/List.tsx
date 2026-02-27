@@ -36,7 +36,7 @@ export const List = ({ list }: ListProps) => {
         <AddAction
           onAdd={(title) => addCard(list.id, title)}
           buttonText="Add another card"
-          placeholder="Enter a title for this card..."
+          placeholder="Enter a card title... (shift + enter for a new line)"
           submitText="Create card"
           isTextArea
         />
