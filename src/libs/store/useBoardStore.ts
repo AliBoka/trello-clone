@@ -10,6 +10,8 @@ interface BoardState {
   deleteList: (listId: string) => void;
   addCard: (listId: string, title: string) => void;
   deleteCard: (listId: string, cardId: string) => void;
+  updateListTitle: (listId: string, title: string) => void;
+  deleteAllCards: (listId: string) => void;
 }
 
 const initialBoard: Board = {
@@ -81,6 +83,25 @@ export const useBoardStore = create<BoardState>()(
                     cards: list.cards.filter((card) => card.id !== cardId),
                   }
                 : list
+            ),
+          },
+        })),
+      updateListTitle: (listId, title) =>
+        set((state) => ({
+          board: {
+            ...state.board,
+            lists: state.board.lists.map((list) =>
+              list.id === listId ? { ...list, title } : list
+            ),
+          },
+        })),
+
+      deleteAllCards: (listId) =>
+        set((state) => ({
+          board: {
+            ...state.board,
+            lists: state.board.lists.map((list) =>
+              list.id === listId ? { ...list, cards: [] } : list
             ),
           },
         })),

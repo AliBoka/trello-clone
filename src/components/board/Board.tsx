@@ -4,6 +4,7 @@ import { useBoardStore } from '@/libs/store/useBoardStore';
 import { InlineEdit } from '../shared/InlineEdit';
 import { useHasMounted } from '@/libs/hooks/useHasMounted';
 import { AddAction } from '../shared/AddAction';
+import { List } from './List';
 
 export const Board = () => {
   const board = useBoardStore((state) => state.board);
@@ -25,11 +26,8 @@ export const Board = () => {
       </header>
 
       <main className="board-canvas">
-        {/* Placeholder for lists */}
         {board.lists.map((list) => (
-          <div key={list.id} className="list-wrapper placeholder">
-            {list.title}
-          </div>
+          <List key={list.id} list={list} />
         ))}
 
         <AddAction

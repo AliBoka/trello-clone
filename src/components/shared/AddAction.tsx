@@ -9,6 +9,8 @@ interface AddActionProps {
   buttonText: string;
   placeholder: string;
   isBoardLevel?: boolean;
+  isTextArea?: boolean;
+  submitText?: string;
 }
 
 export const AddAction = ({
@@ -16,16 +18,25 @@ export const AddAction = ({
   buttonText,
   placeholder,
   isBoardLevel = false,
+  isTextArea = false,
+  submitText,
 }: AddActionProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [text, setText] = useState('');
+
+  // Separate refs for complete type safety
   const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    if (isEditing && inputRef.current) {
-      inputRef.current.focus();
+    if (isEditing) {
+      if (isTextArea && textareaRef.current) {
+        textareaRef.current.focus();
+      } else if (!isTextArea && inputRef.current) {
+        inputRef.current.focus();
+      }
     }
-  }, [isEditing]);
+  }, [isEditing, isTextArea]);
 
   const handleAdd = () => {
     if (text.trim()) {
@@ -36,27 +47,47 @@ export const AddAction = ({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') handleAdd();
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleAdd();
+    }
     if (e.key === 'Escape') {
       setIsEditing(false);
       setText('');
     }
   };
 
+  // Shared generic change handler
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setText(e.target.value);
+  };
+
   if (isEditing) {
     return (
-      <div className={cn('add-action-form', isBoardLevel && 'board-level')}>
-        <input
-          ref={inputRef}
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder={placeholder}
-          className="add-action-input"
-        />
+      <div className={cn('add-action-form', { 'board-level': isBoardLevel })}>
+        {isTextArea ? (
+          <textarea
+            ref={textareaRef}
+            value={text}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            placeholder={placeholder}
+            className={cn('add-action-input', 'is-textarea')}
+            rows={3}
+          />
+        ) : (
+          <input
+            ref={inputRef}
+            value={text}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            placeholder={placeholder}
+            className="add-action-input"
+          />
+        )}
         <div className="add-action-controls">
           <button onClick={handleAdd} className="add-action-submit">
-            Add {buttonText.split(' ')[1]}
+            {submitText || `Add ${buttonText.split(' ')[1]}`}
           </button>
           <button onClick={() => setIsEditing(false)} className="add-action-cancel">
             <X size={20} />
@@ -68,9 +99,7 @@ export const AddAction = ({
 
   return (
     <button
-      className={cn('add-action-button', {
-        'board-level': isBoardLevel,
-      })}
+      className={cn('add-action-button', { 'board-level': isBoardLevel })}
       onClick={() => setIsEditing(true)}
     >
       + {buttonText}

@@ -1,0 +1,41 @@
+.card-container {
+  background-color: $card-bg;
+  padding: 0.5rem 0.75rem;
+  border-radius: $border-radius;
+  box-shadow: $shadow-sm;
+  cursor: pointer;
+  transition: $transition-fast;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &:hover {
+    background-color: #f4f5f7;
+  }
+
+  .card-title {
+    font-size: $font-size-base;
+    color: $text-main;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-badges {
+    display: flex;
+    justify-content: flex-end;
+    
+    .badge {
+      font-size: $font-size-sm;
+      color: $text-subtle;
+      background-color: rgba(9, 30, 66, 0.08);
+      padding: 0.125rem 0.25rem;
+      border-radius: 0.125rem;
+    }
+  }
+}
