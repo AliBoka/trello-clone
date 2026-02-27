@@ -1,0 +1,24 @@
+@mixin custom-scrollbar($size: 0.5rem, $thumb-color: rgba(255, 255, 255, 0.4), $track-color: transparent) {
+  /* Works on Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: $thumb-color $track-color;
+
+  &::-webkit-scrollbar {
+    width: $size;  
+    height: $size; 
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $track-color;
+    border-radius: 0.25rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $thumb-color;
+    border-radius: 0.25rem;
+    
+    &:hover {
+      background-color: darken($thumb-color, 15%);
+    }
+  }
+}

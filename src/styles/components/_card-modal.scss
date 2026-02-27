@@ -1,3 +1,5 @@
+@import '../mixins';
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -12,17 +14,7 @@
   padding: 1rem;
   overflow-y: auto;
 
-  /* Custom scrollbar for overlay */
-  &::-webkit-scrollbar {
-    width: 0.5rem;
-  }
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.4);
-    border-radius: 0.25rem;
-  }
+  @include custom-scrollbar(0.5rem, rgba(255, 255, 255, 0.4), transparent);
 }
 
 .card-modal {
@@ -37,6 +29,8 @@
   margin-bottom: 0;
   overflow-y: auto;
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+  
+  @include custom-scrollbar(0.5rem, rgba(9, 30, 66, 0.16), transparent);
 
   .modal-header {
     display: flex;

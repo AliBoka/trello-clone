@@ -1,3 +1,5 @@
+@import '../mixins';
+
 .list-container {
   background-color: $list-bg;
   border-radius: $border-radius;
@@ -35,18 +37,8 @@
     gap: 0.5rem;
     min-height: 0.5rem;
 
-    /* Custom scrollbar */
-    &::-webkit-scrollbar {
-      width: 0.5rem;
-    }
-    &::-webkit-scrollbar-track {
-      background: rgba(9, 30, 66, 0.08);
-      border-radius: 0.25rem;
-    }
-    &::-webkit-scrollbar-thumb {
-      background: rgba(9, 30, 66, 0.16);
-      border-radius: 0.25rem;
-    }
+    @include custom-scrollbar(0.5rem, rgba(9, 30, 66, 0.16), rgba(9, 30, 66, 0.08));
+
 
     .card-placeholder {
       background-color: $card-bg;

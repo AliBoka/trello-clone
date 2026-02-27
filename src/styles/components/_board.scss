@@ -1,3 +1,5 @@
+@import '../mixins';
+
 .board-container {
   display: flex;
   flex-direction: column;
@@ -20,8 +22,7 @@
     }
   }
 
-  .board-canvas {
-    display: flex;
+  .board-canvas {display: flex;
     flex: 1;
     padding: 1rem;
     overflow-x: auto;
@@ -29,6 +30,7 @@
     gap: 1rem;
     align-items: flex-start;
 
+    @include custom-scrollbar(0.75rem, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.1));
     .add-list-button {
       height: 2.75rem;
       min-width: 17rem;
