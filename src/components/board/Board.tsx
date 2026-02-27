@@ -5,6 +5,7 @@ import { InlineEdit } from '../shared/InlineEdit';
 import { useHasMounted } from '@/libs/hooks/useHasMounted';
 import { AddAction } from '../shared/AddAction';
 import { List } from './List';
+import { CardModal } from '../modals/CardModal';
 
 export const Board = () => {
   const board = useBoardStore((state) => state.board);
@@ -36,6 +37,7 @@ export const Board = () => {
           placeholder="Enter list title..."
           isBoardLevel
         />
+        <CardModal />
       </main>
     </div>
   );

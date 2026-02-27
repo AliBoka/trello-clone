@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@/libs/utils/cn';
 import { useState, useRef, useEffect } from 'react';
 
 interface InlineEditProps {
@@ -54,7 +55,7 @@ export const InlineEdit = ({ value, onSave, className = '' }: InlineEditProps) =
 
   return (
     <div
-      className={`inline-edit-display ${className}`}
+      className={cn('inline-edit-display', className)}
       onClick={() => setIsEditing(true)}
     >
       {value}

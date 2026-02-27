@@ -28,7 +28,7 @@ export const List = ({ list }: ListProps) => {
 
       <div className="list-cards">
         {list.cards.map((card) => (
-          <Card key={card.id} card={card} />
+          <Card key={card.id} card={card} listId={list.id} />
         ))}
       </div>
 
