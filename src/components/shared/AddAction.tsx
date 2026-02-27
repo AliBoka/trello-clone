@@ -27,6 +27,7 @@ export const AddAction = ({
   // Separate refs for complete type safety
   const inputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const formRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isEditing) {
@@ -37,6 +38,23 @@ export const AddAction = ({
       }
     }
   }, [isEditing, isTextArea]);
+
+  // Auto-focus and select text when entering edit mode
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (formRef.current && !formRef.current.contains(e.target as Node)) {
+        setIsEditing(false);
+        setText('');
+      }
+    };
+
+    if (isEditing) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isEditing]);
 
   const handleAdd = () => {
     if (text.trim()) {
@@ -50,9 +68,8 @@ export const AddAction = ({
             inline: 'end',
             block: 'end',
           });
-          inputRef.current.focus();
         } else if (isTextArea && textareaRef.current) {
-          textareaRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+          textareaRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
       }, 50);
     }
@@ -69,14 +86,16 @@ export const AddAction = ({
     }
   };
 
-  // Shared generic change handler
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setText(e.target.value);
   };
 
   if (isEditing) {
     return (
-      <div className={cn('add-action-form', { 'board-level': isBoardLevel })}>
+      <div
+        ref={formRef}
+        className={cn('add-action-form', { 'board-level': isBoardLevel })}
+      >
         {isTextArea ? (
           <textarea
             ref={textareaRef}

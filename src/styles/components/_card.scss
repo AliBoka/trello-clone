@@ -43,4 +43,68 @@
       border-radius: 0.125rem;
     }
   }
+
+  position: relative; 
+
+  .card-edit-btn {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    background-color: $list-bg;
+    border: none;
+    padding: 0.25rem;
+    border-radius: $border-radius;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity $transition-fast;
+    color: $text-subtle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: darken($list-bg, 5%);
+      color: $text-main;
+    }
+  }
+
+  &:hover .card-edit-btn {
+    opacity: 1;
+  }
+
+  .card-inline-edit {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 10;
+    
+    textarea {
+      width: 100%;
+      border: none;
+      resize: none;
+      outline: none;
+      font-family: inherit;
+      font-size: $font-size-base;
+      padding: 0;
+      color: $text-main;
+      background: transparent;
+      line-height: 1.4;
+    }
+    
+    .btn-save {
+      background-color: $accent-color;
+      color: white;
+      border: none;
+      padding: 0.375rem 0.75rem;
+      border-radius: $border-radius;
+      cursor: pointer;
+      font-weight: 500;
+      align-self: flex-start;
+      transition: $transition-fast;
+
+      &:hover {
+        background-color: darken($accent-color, 5%);
+      }
+    }
+  }
 }
