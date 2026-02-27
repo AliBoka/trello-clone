@@ -3,10 +3,13 @@
 import { useBoardStore } from '@/libs/store/useBoardStore';
 import { InlineEdit } from '../shared/InlineEdit';
 import { useHasMounted } from '@/libs/hooks/useHasMounted';
+import { AddAction } from '../shared/AddAction';
 
 export const Board = () => {
   const board = useBoardStore((state) => state.board);
   const updateBoardTitle = useBoardStore((state) => state.updateBoardTitle);
+  const addList = useBoardStore((state) => state.addList);
+
   const isMounted = useHasMounted();
 
   if (!isMounted) return null;
@@ -29,7 +32,12 @@ export const Board = () => {
           </div>
         ))}
 
-        <button className="add-list-button">+ Add another list</button>
+        <AddAction
+          onAdd={addList}
+          buttonText="Add another list"
+          placeholder="Enter list title..."
+          isBoardLevel
+        />
       </main>
     </div>
   );
